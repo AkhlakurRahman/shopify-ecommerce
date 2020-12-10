@@ -3,6 +3,7 @@ import styled from 'styled-components';
 const ProductGrid = styled.section`
   display: grid;
   grid-template-columns: 1fr;
+  grid-gap: 20px;
 
   @media (min-width: 768px) {
     grid-template-columns: 1fr 1fr;
