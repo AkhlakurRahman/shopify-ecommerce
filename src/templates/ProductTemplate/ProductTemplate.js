@@ -13,19 +13,7 @@ import ProductQuantityAdder from '../../components/ProductQuantityAdder/ProductQ
 export const query = graphql`
   query ProductQuery($shopifyId: String) {
     shopifyProduct(shopifyId: { eq: $shopifyId }) {
-      shopifyId
-      title
-      description
-      images {
-        id
-        localFile {
-          childImageSharp {
-            fluid(maxWidth: 300) {
-              ...GatsbyImageSharpFluid_withWebp
-            }
-          }
-        }
-      }
+      ...ShopifyProductFields
     }
   }
 `;
