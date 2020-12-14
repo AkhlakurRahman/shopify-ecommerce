@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 
-import Button from '../Button/Button';
+import { Button } from '../Button/Button';
 import Input from '../Input/Input';
 import CartContext from '../../context/CartContext';
 
@@ -33,12 +33,9 @@ const ProductQuantityAdder = ({ available, variantId }) => {
           onChange={handleQuantityChange}
         />
 
-        <Button
-          type="submit"
-          disabled={!available}
-          buttonText="Add to cart"
-          fullWidth
-        />
+        <Button type="submit" disabled={!available} fullWidth>
+          Add to cart
+        </Button>
       </form>
     </QuantityStyles>
   );

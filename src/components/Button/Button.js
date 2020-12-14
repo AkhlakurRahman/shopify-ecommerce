@@ -1,4 +1,3 @@
-import React from 'react';
 import styled, { css } from 'styled-components';
 
 const fullWidthStyles = ({ fullWidth }) => {
@@ -10,7 +9,7 @@ const fullWidthStyles = ({ fullWidth }) => {
   }
 };
 
-const ButtonStyle = styled.button`
+export const Button = styled.button`
   outline: none;
   padding: 0 10px;
   height: 44px;
@@ -40,10 +39,10 @@ const ButtonStyle = styled.button`
   }
 `;
 
-const Button = ({ buttonText, fullWidth, type, disabled }) => (
-  <ButtonStyle fullWidth type={type} disabled={disabled}>
-    {buttonText}
-  </ButtonStyle>
-);
+// const Button = ({ buttonText, fullWidth, type, disabled }) => (
+//   <ButtonStyle fullWidth type={type} disabled={disabled}>
+//     {buttonText}
+//   </ButtonStyle>
+// );
 
-export default Button;
+// export default Button;

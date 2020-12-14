@@ -9,6 +9,7 @@ import Layout from '../../components/Layout/Layout';
 import ImageGallery from '../../components/ImageGallery/ImageGallery';
 import CartContext from '../../context/CartContext';
 import ProductQuantityAdder from '../../components/ProductQuantityAdder/ProductQuantityAdder';
+import { Button } from '../../components/Button/Button';
 
 export const query = graphql`
   query ProductQuery($shopifyId: String) {
@@ -56,6 +57,7 @@ const ProductTemplate = ({ data }) => {
 
   return (
     <Layout>
+      <Button onClick={() => navigate(-1)}>Back to products</Button>
       <ProductGrid>
         <div>
           <h1>{shopifyProduct.title}</h1>
@@ -107,6 +109,7 @@ const ProductGrid = styled.section`
   display: grid;
   grid-template-columns: 1fr;
   grid-gap: 20px;
+  margin-top: 20px;
 
   @media (min-width: 768px) {
     grid-template-columns: 1fr 1fr;

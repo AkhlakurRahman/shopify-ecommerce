@@ -11,8 +11,6 @@ const HomePageCollection = ({ collections }) => {
     collection => collection.title !== 'SALE'
   );
 
-  console.log(saleCollection);
-
   return (
     <div>
       {!!saleCollection && (

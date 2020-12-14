@@ -1,12 +1,13 @@
 import React, { useContext } from 'react';
-import HomePageCollection from '../components/HomePageCollection/HomePageCollection';
 
 import Layout from '../components/Layout/Layout';
 import ProductContext from '../context/ProductContext';
+import FeaturedProducts from '../components/FeaturedProducts/FeaturedProducts';
+import HomePageCollection from '../components/HomePageCollection/HomePageCollection';
 
 const IndexPage = () => {
   const { collections } = useContext(ProductContext);
-  console.log(collections);
+
   return (
     <Layout>
       <HomePageCollection
@@ -14,6 +15,10 @@ const IndexPage = () => {
           collection => collection.title !== 'Featured hats'
         )}
       />
+
+      {!!collections.find(
+        collection => collection.title === 'Featured hats'
+      ) && <FeaturedProducts />}
     </Layout>
   );
 };
