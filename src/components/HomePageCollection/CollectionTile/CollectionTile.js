@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import BackgroundImage from 'gatsby-background-image';
+import { LinkStyle } from '../../LinkStyle/LinkStyle';
 
-const CollectionTile = ({ title, description, image, sale }) => {
+const CollectionTile = ({ title, description, image, sale, destination }) => {
   return (
     <CollectionTileStyles>
       <BackgroundImage fluid={image} />
@@ -10,6 +11,7 @@ const CollectionTile = ({ title, description, image, sale }) => {
         <div>
           <Title sale={sale}>{title}</Title>
           <Description sale={sale}>{description}</Description>
+          <LinkStyle to={destination}>Shop now</LinkStyle>
         </div>
       </CollectionTileContentStyle>
     </CollectionTileStyles>
@@ -40,6 +42,28 @@ const CollectionTileContentStyle = styled.div`
   text-decoration: none;
   background: rgba(0, 0, 0, 0.5);
   text-align: center;
+
+  > div {
+    padding: 20px;
+
+    ${LinkStyle} {
+      padding: 10px;
+      background: white;
+      border: 1px solid black;
+      font-weight: bold;
+      font-size: 16px;
+      text-transform: uppercase;
+      text-decoration: none;
+      display: inline-block;
+      color: black;
+      transition: all 0.3s ease-in-out;
+
+      &:hover {
+        color: white;
+        background: black;
+      }
+    }
+  }
 `;
 
 const Title = styled.div`

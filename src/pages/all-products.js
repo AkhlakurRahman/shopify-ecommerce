@@ -7,6 +7,7 @@ import Layout from '../components/Layout/Layout';
 import Filter from '../components/Filter/Filter';
 import ProductContext from '../context/ProductContext';
 import Products from '../components/FeaturedProducts/Products/Products';
+import SEO from '../components/SEO/SEO';
 
 const AllProductsPage = () => {
   const { products, collections } = useContext(ProductContext);
@@ -15,6 +16,7 @@ const AllProductsPage = () => {
   const qs = queryString.parse(search);
   const selectedCollectedIds = qs.c?.split(',').filter(c => !!c) || [];
   const selectedCollectionIdsMap = {};
+  const searchTerm = qs.s;
 
   selectedCollectedIds.forEach(collectionId => {
     selectedCollectionIdsMap[collectionId] = true;
@@ -30,8 +32,6 @@ const AllProductsPage = () => {
     });
   }
 
-  console.log(collectionProductMap);
-
   const filterByCategory = product => {
     if (Object.keys(selectedCollectionIdsMap).length) {
       for (let key in selectedCollectionIdsMap) {
@@ -45,18 +45,47 @@ const AllProductsPage = () => {
     return true;
   };
 
-  const filteredProducts = products.filter(filterByCategory);
+  const filterBySearchTerm = product => {
+    if (searchTerm) {
+      return product.title.toLowerCase().indexOf(searchTerm.toLowerCase()) >= 0;
+    }
+
+    return true;
+  };
+
+  const filteredProducts = products
+    .filter(filterByCategory)
+    .filter(filterBySearchTerm);
 
   return (
     <Layout>
-      <h4>{filteredProducts.length} products</h4>
+      <SEO
+        title="MadHatter All Products"
+        description="The MadHatter store's all products"
+      />
+      {!!searchTerm && !!filteredProducts.length && (
+        <h3>
+          Search term: <strong>'{searchTerm}'</strong>
+        </h3>
+      )}
+      {!!filteredProducts.length && <h4>{filteredProducts.length} products</h4>}
 
       <Content>
         <Filter collections={collections} />
-
-        <div>
-          <Products products={filteredProducts} />
-        </div>
+        {!filteredProducts.length && (
+          <div>
+            <h3>
+              <span>Nothing matches your search for</span>
+              &nbsp;
+              <strong>'{searchTerm}'</strong>
+            </h3>
+          </div>
+        )}
+        {!!filteredProducts.length && (
+          <div>
+            <Products products={filteredProducts} />
+          </div>
+        )}
       </Content>
     </Layout>
   );

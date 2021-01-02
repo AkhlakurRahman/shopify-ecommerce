@@ -1,6 +1,10 @@
 import React from 'react';
+import { Link } from 'gatsby';
 import styled from 'styled-components';
+
+import Search from '../Search/Search';
 import Cart from './Cart/Cart';
+import Logo from '../Logo/Logo';
 
 const HeaderWrapper = styled.header`
   display: flex;
@@ -14,6 +18,12 @@ const HeaderWrapper = styled.header`
 const Header = () => {
   return (
     <HeaderWrapper>
+      <div>
+        <Link to="/">
+          <Logo />
+        </Link>
+      </div>
+      <Search />
       <Cart />
     </HeaderWrapper>
   );

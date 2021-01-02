@@ -1,7 +1,9 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
+import { navigate } from '@reach/router';
 
 import CartContext from '../../context/CartContext';
+import { Button } from '../Button/Button';
 import DeleteIconButton from '../DeleteIconButton/DeleteIconButton';
 import QuantityAdjuster from '../QuantityAdjuster/QuantityAdjuster';
 
@@ -14,14 +16,16 @@ const CartContents = () => {
 
   return (
     <section>
-      <h1>You about to buy</h1>
+      <h1>You are about to buy</h1>
 
-      <CartHeader>
-        <div>Product</div>
-        <div>Unit price</div>
-        <div>Quantity</div>
-        <div>Amount</div>
-      </CartHeader>
+      {!!checkout?.lineItems && (
+        <CartHeader>
+          <div>Product</div>
+          <div>Unit price</div>
+          <div>Quantity</div>
+          <div>Amount</div>
+        </CartHeader>
+      )}
 
       {checkout?.lineItems?.map(lineItem => (
         <CartItem key={lineItem.id}>
@@ -45,14 +49,32 @@ const CartContents = () => {
           <DeleteIconButton lineItemId={lineItem.id} />
         </CartItem>
       ))}
-      <CartFooter>
+
+      {!!checkout?.lineItems && (
+        <CartFooter>
+          <div>
+            <strong>Total:</strong>
+          </div>
+          <div>
+            <span>&#163;{checkout?.totalPrice}</span>
+          </div>
+        </CartFooter>
+      )}
+
+      {!checkout?.lineItems && <h4>Your cart is empty</h4>}
+      <Footer>
         <div>
-          <strong>Total:</strong>
+          <Button onClick={() => navigate(-1)}>Continue shopping</Button>
         </div>
+
         <div>
-          <span>&#163;{checkout?.totalPrice}</span>
+          {!!checkout?.webUrl && (
+            <Button onClick={() => (window.location.href = checkout.webUrl)}>
+              Checkout
+            </Button>
+          )}
         </div>
-      </CartFooter>
+      </Footer>
     </section>
   );
 };
@@ -99,6 +121,15 @@ const CartFooter = styled.div`
     &:first-child {
       text-align: right;
     }
+  }
+`;
+
+const Footer = styled.footer`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  > div:last-child {
+    text-align: right;
   }
 `;
 

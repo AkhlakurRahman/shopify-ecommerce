@@ -10,6 +10,7 @@ const FilterByTitle = ({ title, shopifyId }) => {
   const qs = queryString.parse(search);
   const collectionIds = qs.c?.split(',').filter(c => !!c) || [];
   const checked = collectionIds?.find(cId => cId === shopifyId);
+  const searchTerm = qs.s;
 
   const onFilterTileHandler = () => {
     const navigateTo = '/all-products';
@@ -25,8 +26,16 @@ const FilterByTitle = ({ title, shopifyId }) => {
       newIds = collectionIds.map(cId => encodeURIComponent(cId));
     }
 
-    if (newIds.length) {
+    if (newIds.length && !searchTerm) {
       navigate(`${navigateTo}?c=${newIds.join(',')}`);
+    } else if (newIds.length && !!searchTerm) {
+      navigate(
+        `${navigateTo}?c=${newIds.join(',')}&s=${encodeURIComponent(
+          searchTerm
+        )}`
+      );
+    } else if (!newIds.length && !!searchTerm) {
+      navigate(`${navigateTo}&s=${encodeURIComponent(searchTerm)}`);
     } else {
       navigate(`${navigateTo}`);
     }

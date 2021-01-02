@@ -8,12 +8,16 @@ import { LinkStyle } from '../../LinkStyle/LinkStyle';
 const CartWrapper = styled(LinkStyle).attrs(() => ({
   to: '/cart',
 }))`
-  margin-left: auto;
   display: flex;
   color: black;
   text-decoration: none;
   padding: 5px 8px;
   transition: all 0.3s ease-in-out;
+  padding-left: 16px;
+
+  > svg {
+    margin: auto 0;
+  }
 
   > div:last-child {
     padding-left: 8px;

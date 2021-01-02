@@ -16,6 +16,9 @@ const HomePageCollection = ({ collections }) => {
       {!!saleCollection && (
         <CollectionTile
           sale
+          destination={`/all-products?c=${encodeURIComponent(
+            saleCollection.shopifyId
+          )}`}
           title={saleCollection.title}
           description={saleCollection.description}
           image={saleCollection.image?.localFile.childImageSharp.fluid}
@@ -26,6 +29,9 @@ const HomePageCollection = ({ collections }) => {
         {remainingCollection.map(collection => (
           <CollectionTile
             title={collection.title}
+            destination={`/all-products?c=${encodeURIComponent(
+              collection.shopifyId
+            )}`}
             description={collection.description}
             image={collection.image?.localFile.childImageSharp.fluid}
             key={collection.shopifyId}

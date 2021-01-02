@@ -4,7 +4,6 @@ import Img from 'gatsby-image';
 import { LinkStyle } from '../../LinkStyle/LinkStyle';
 
 const Products = ({ products }) => {
-  console.log(products);
   return (
     <ProductStyles>
       {products.map(product => (
